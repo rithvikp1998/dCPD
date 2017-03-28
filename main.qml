@@ -155,7 +155,7 @@ Rectangle {
         width: 50
         height: 24
         font.pointSize: 12
-
+        enabled: range_pages_button.checked ? true : false
         onTextChanged: {
             if(range_left.text != '')
                 value = range_left.text
@@ -180,7 +180,7 @@ Rectangle {
         width: 50
         height: 24
         font.pointSize: 12
-
+        enabled: range_pages_button.checked ? true : false
         onTextChanged: {
             if(range_right.text != '')
                 value = range_right.text
