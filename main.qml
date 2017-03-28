@@ -104,18 +104,32 @@ Rectangle {
         text: qsTr("Collated")
     }
 
+    CheckBox {
+        x: 40
+        y: 160
+        height: 24
+        text: qsTr("Two-sided")
+    }
+
+    CheckBox {
+        x: 160
+        y: 160
+        height: 24
+        text: qsTr("Color")
+    }
+
     Text {
         id: page_range_text
         text: "Pages : "
         font.pointSize: 12
         x: 40
-        y: 180
+        y: 210
     }
 
     ColumnLayout {
         ExclusiveGroup { id: page_range_group }
         x: 120
-        y: 170
+        y: 200
 
         RadioButton {
             id: all_pages_button
@@ -137,7 +151,7 @@ Rectangle {
         property int value: 1
         text: value
         x: 200
-        y: 195
+        y: 225
         width: 50
         height: 24
         font.pointSize: 12
@@ -152,7 +166,7 @@ Rectangle {
 
     Text {
         x: 260
-        y: 195
+        y: 225
         text: qsTr(" - ")
         font.pointSize: 12
     }
@@ -162,7 +176,7 @@ Rectangle {
         property int value: 1
         text: value
         x: 280
-        y: 195
+        y: 225
         width: 50
         height: 24
         font.pointSize: 12
@@ -179,14 +193,14 @@ Rectangle {
         id: paper_text
         text: qsTr("Paper Size : ")
         x: 40
-        y: 240
+        y: 280
         font.pointSize: 12
     }
 
     ComboBox {
         id: papers_list
         x: 140
-        y: 240
+        y: 280
         width: 200
         height: 24
         model: ["A4", "A3", "Legal", "Letter"]
@@ -194,7 +208,7 @@ Rectangle {
 
     Text {
         x: 40
-        y: 280
+        y: 320
         id: orientation_text
         text: qsTr("Orientation : ")
     }
@@ -202,7 +216,7 @@ Rectangle {
     RowLayout {
         ExclusiveGroup { id: orientation_group }
         x: 140
-        y: 280
+        y: 320
 
         RadioButton {
             id: landscape_button
@@ -223,14 +237,14 @@ Rectangle {
         id: application_text
         text: qsTr("Application : ")
         x: 40
-        y: 320
+        y: 360
         font.pointSize: 12
     }
 
     ComboBox {
         id: applications_list
         x: 140
-        y: 320
+        y: 360
         width: 200
         height: 24
         model: ["Firefox", "LibreOffice", "Photo Viewer"]
@@ -240,7 +254,7 @@ Rectangle {
         id: info
         text: qsTr("This menu depends on the application you are printing from")
         x: 40
-        y: 360
+        y: 400
         font.pointSize: 10
     }
 

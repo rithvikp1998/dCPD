@@ -8,3 +8,6 @@ UPDATE: Mar 28, 2017
 
 ![Alt text](Images/screenshot2.png?raw=true)
 
+UPDATE 2: Mar 28, 2017
+
+![Alt text](Images/screenshot3.png?raw=true)
