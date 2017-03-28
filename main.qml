@@ -1,15 +1,11 @@
 import QtQuick 2.6
-import QtQuick.Window 2.2
-import QtQuick.Controls 1.4         /* For ComboBox, Button */
-import QtQuick.Controls.Styles 1.4  /* For ComboBox */
-import QtQuick.Layouts 1.3
+import QtQuick.Controls 1.4
+import QtQuick.Layouts 1.1
 
-//Window {
 Rectangle {
     visible: true
     width: 800
     height: 540
-    //title: "Print Dialog"
 
     Text {
         id: printer_text
@@ -263,5 +259,14 @@ Rectangle {
             height: 280
             source: "image://preview/pdf"
         }
+    }
+
+    Button {
+        id: print_button
+        text: "Print"
+        width: 100
+        height: 36
+        x: 480 + 250 - 100
+        y: 540 - 80
     }
 }
