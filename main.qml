@@ -100,6 +100,7 @@ Rectangle {
     CheckBox {
         x: 120 + 80 + 24 + 24 + 20
         y: 120
+        height: 24
         text: qsTr("Collated")
     }
 
