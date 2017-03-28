@@ -4,7 +4,8 @@ import QtQuick.Controls 1.4         /* For ComboBox, Button */
 import QtQuick.Controls.Styles 1.4  /* For ComboBox */
 import QtQuick.Layouts 1.3
 
-Window {
+//Window {
+Rectangle {
     visible: true
     width: 800
     height: 540
@@ -246,20 +247,21 @@ Window {
         font.pointSize: 10
     }
 
-    Image {
-        id: preview
+    Rectangle {
+        border.width: 1
+        border.color: "black"
+        color: "white"
         x: 480
-        y: 80
-        width: 200
-        height: 280
-        source: "Images/preview.png"
-    }
-
-    /*Text {
-        id: temp
-        text: qsTr(pdfpreviewdata.test)
-        x: 400
         y: 40
-        font.pointSize: 12
-    }*/
+        width: 250
+        height: 350
+
+        Image {
+            anchors.centerIn: parent
+            id: preview
+            width: 200
+            height: 280
+            source: "image://preview/pdf"
+        }
+    }
 }

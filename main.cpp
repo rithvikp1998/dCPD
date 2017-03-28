@@ -5,24 +5,44 @@
 #include <QQuickView>
 #include <QQmlContext>
 #include <QUrl>
-#include <string.h>
+#include <iostream>
 #include <QQmlComponent>
+#include <QQuickImageProvider>
 
 using namespace std;
 
-class pdf_preview : public QObject {
-
-    Q_PROPERTY(QImage image READ image WRITE setImage NOTIFY imageChanged)
+class pdf_preview : public QQuickImageProvider {
 
 public:
+    pdf_preview()
+        : QQuickImageProvider(QQuickImageProvider::Image)
+    {
+    }
 
-    QImage image;
-    string test = "Hello World!";
-    void setImage(){
-        QString filename = "usb_layout.pdf";
-        Poppler::Document* document = Poppler::Document::load(filename);
-        Poppler::Page* pdfPage = document->page(0);  // Document starts at page 0
-        QImage image = pdfPage->renderToImage(72.0, 72.0, -1, -1, -1, -1);
+    QImage requestImage(const QString &id, QSize *size, const QSize &requestedSize)
+    {
+
+        Poppler::Document* document = Poppler::Document::load("/tmp/test.pdf");
+        if (!document || document->isLocked() || document == 0 )
+        {
+            cout << "ERROR" << endl;
+        }
+
+        Poppler::Page* pdfPage = document->page(0);
+        if (pdfPage == 0)
+        {
+            cout << "ERROR" << endl;
+        }
+
+        QImage image = pdfPage->renderToImage(72.0,72.0,0,0,pdfPage->pageSize().width(),pdfPage->pageSize().height());
+        if (image.isNull())
+        {
+            cout << "ERROR" << endl;
+        }
+
+        return image;
+
+        //delete document and image after use
     }
 };
 
@@ -30,26 +50,10 @@ int main(int argc, char *argv[]) {
 
     QGuiApplication app(argc, argv);
 
-    /*QQuickView view;
-
-    pdf_preview data;
-    view.engine()->rootContext()->setContextProperty("pdfpreviewdata", &data);
-
-    view.setSource(QUrl::fromLocalFile("main.qml"));
-    view.show();*/
-
-
-    /*QQmlEngine engine;
-    QQmlContext *context = new QQmlContext(engine.rootContext());
-
-    pdf_preview data;
-    context->setContextProperty("pdfpreviewdata", &data);
-
-    QQmlComponent component(&engine, "main.qml");
-    QObject *object = component.create(context);*/
-
-    QQmlApplicationEngine engine;
-    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
+    QQuickView view;
+    view.engine()->addImageProvider(QLatin1String("preview"), new pdf_preview);
+    view.setSource(QUrl("qrc:/main.qml"));
+    view.show();
 
     return app.exec();
 }
