@@ -1,13 +1,12 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include <poppler/qt5/poppler-qt5.h>
-#include <QtGui>
 #include <QQuickView>
 #include <QQmlContext>
-#include <QUrl>
-#include <iostream>
-#include <QQmlComponent>
 #include <QQuickImageProvider>
+#include <QStringList>
+#include <poppler/qt5/poppler-qt5.h>
+#include <cups/cups.h>
+#include <iostream>
 
 using namespace std;
 
@@ -46,11 +45,29 @@ public:
     }
 };
 
+QStringList printers_list;
+
+void set_printers_list(){
+    cups_dest_t *dests;
+    int num_dests = cupsGetDests(&dests);
+    cups_dest_t *dest = cupsGetDest("name", NULL, num_dests, dests);
+    int i;
+    for (i = num_dests, dest = dests; i > 0; i --, dest ++)
+        if (dest->instance == NULL)
+            printers_list.append(dest->name);
+
+    cupsFreeDests(num_dests, dests);
+    return;
+}
+
 int main(int argc, char *argv[]) {
 
     QGuiApplication app(argc, argv);
 
+    set_printers_list();
+
     QQuickView view;
+    view.rootContext()->setContextProperty("printersListModel", QVariant::fromValue(printers_list));
     view.engine()->addImageProvider(QLatin1String("preview"), new pdf_preview);
     view.setSource(QUrl("qrc:/main.qml"));
     view.show();

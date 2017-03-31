@@ -21,7 +21,7 @@ Rectangle {
         y: 40
         width: 200
         height: 24
-        model: ["Printer 1", "Printer 2", "Printer 3"]
+        model: printersListModel
     }
 
     Text {
