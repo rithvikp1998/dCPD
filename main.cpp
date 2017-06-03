@@ -50,10 +50,10 @@ QStringList printers_list;
 void set_printers_list(){
     cups_dest_t *dests;
     int num_dests = cupsGetDests(&dests);
-    cups_dest_t *dest = cupsGetDest("name", NULL, num_dests, dests);
+    cups_dest_t *dest = cupsGetDest("name", nullptr, num_dests, dests);
     int i;
     for (i = num_dests, dest = dests; i > 0; i --, dest ++)
-        if (dest->instance == NULL)
+        if (dest->instance == nullptr)
             printers_list.append(dest->name);
 
     cupsFreeDests(num_dests, dests);
