@@ -51,8 +51,7 @@ void set_printers_list(){
     cups_dest_t *dests;
     int num_dests = cupsGetDests(&dests);
     cups_dest_t *dest = cupsGetDest("name", nullptr, num_dests, dests);
-    int i;
-    for (i = num_dests, dest = dests; i > 0; i --, dest ++)
+    for(dest = dests; dest != & dests[num_dests]; dest++)
         if (dest->instance == nullptr)
             printers_list.append(dest->name);
 
