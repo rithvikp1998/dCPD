@@ -28,7 +28,7 @@ public:
         }
 
         Poppler::Page* pdfPage = document->page(0);
-        if (pdfPage == 0)
+        if (pdfPage == nullptr)
         {
             cout << "ERROR" << endl;
         }
