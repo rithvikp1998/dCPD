@@ -3,12 +3,9 @@
 #include <QQuickView>
 #include <QQmlContext>
 #include <QQuickImageProvider>
-#include <QStringList>
 #include <poppler/qt5/poppler-qt5.h>
 #include <cups/cups.h>
-#include <iostream>
-
-using namespace std;
+#include <QMessageLogger>
 
 class pdf_preview : public QQuickImageProvider {
 
@@ -22,21 +19,21 @@ public:
     {
 
         Poppler::Document* document = Poppler::Document::load("/tmp/test.pdf");
-        if (!document || document->isLocked() || document == 0 )
+        if (!document || document->isLocked())
         {
-            cout << "ERROR" << endl;
+            qCritical("File '%s' does not exist or is locked!", qUtf8Printable("/tmp/test.pdf"));
         }
 
         Poppler::Page* pdfPage = document->page(0);
         if (pdfPage == nullptr)
         {
-            cout << "ERROR" << endl;
+            qCritical("File '%s' is empty?", qUtf8Printable("/tmp/test.pdf"));
         }
 
         QImage image = pdfPage->renderToImage(72.0,72.0,0,0,pdfPage->pageSize().width(),pdfPage->pageSize().height());
         if (image.isNull())
         {
-            cout << "ERROR" << endl;
+            qCritical("Error!");
         }
 
         return image;
