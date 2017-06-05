@@ -33,9 +33,8 @@ public:
     }
 };
 
-QStringList printersList;
 
-void qSetPrintersList() {
+void qSetPrintersList(QStringList &printersList) {
     cups_dest_t *dests;
     int numDests = cupsGetDests(&dests);
     cups_dest_t *dest = cupsGetDest("name", nullptr, numDests, dests);
@@ -51,7 +50,8 @@ int main(int argc, char *argv[]) {
 
     QGuiApplication app(argc, argv);
 
-    qSetPrintersList();
+    QStringList printersList;
+    qSetPrintersList(printersList);
 
     QQuickView view;
     view.rootContext()->setContextProperty("printersListModel", QVariant::fromValue(printersList));
